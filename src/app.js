@@ -1,0 +1,10 @@
+const express = require('express');
+const cors = require('cors');
+const clienteRoutes = require('./routes/clienteRoutes');
+const app = express();
+app.use(cors());
+app.use(express.json());
+app.get('/', (_req, res) => res.json({ mensagem: 'API de Clientes funcionando!', rotas: '/clientes' }));
+app.use('/clientes', clienteRoutes);
+app.use((err, _req, res, _next) => { console.error(err); res.status(500).json({ erro: 'Erro interno no servidor' }); });
+module.exports = app;
