@@ -1,7 +1,12 @@
 const express = require('express');
 const cors = require('cors');
 const clienteRoutes = require('./routes/clienteRoutes');
+const path = require('path');
 const app = express();
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '..', 'views'));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.get('/painel', (_req, res) => res.render('clientes'));
 app.use(cors());
 app.use(express.json());
 app.get('/', (_req, res) => res.json({ mensagem: 'API de Clientes funcionando!', rotas: '/clientes' }));
